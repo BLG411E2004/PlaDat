@@ -23,3 +23,16 @@ $ npm install -g yarn
 $ cd {YOUR_GIT_REPOSITORY_PATH}/pladat
 $ yarn add semantic-ui-react semantic-ui-css
 ```
+
+## Run the Application
+
+1. First start the flask application
+```bash
+$ cd {YOUR_GIT_REPOSITORY_PATH}/flask
+$ python main.py
+```
+2. While flask is running start the react application
+```bash
+$ cd {YOUR_GIT_REPOSITORY_PATH}/pladat
+$ yarn start
+```
