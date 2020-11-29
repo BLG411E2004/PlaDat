@@ -23,6 +23,12 @@ $ npm install -g yarn
 $ cd {YOUR_GIT_REPOSITORY_PATH}/pladat
 $ yarn add semantic-ui-react semantic-ui-css
 ```
+5. 
+```bash
+$ cd {YOUR_GIT_REPOSITORY_PATH}/pladat
+$ npm install react@next react-dom@next
+$ npm install jquery
+```
 
 ## Run the Application
 

@@ -1,11 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import Page from "./Pages/Page"
+import  HomeMain from "./Pages/HomeMain";
+
+
+
+
 
 function App() {
   return (
     <div className="App">
-      <Page/>
+      <HomeMain></HomeMain>
     </div>
   );
 }
