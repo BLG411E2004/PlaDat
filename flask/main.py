@@ -21,7 +21,6 @@ def home():
 @app.route("/SignUpCompany", methods=["GET","POST"])
 def signup_company():
     request_data = json.loads(request.data)
-    print(request_data)
     #company_db.insert(request_data)
     return {"201":"Success"}
 
