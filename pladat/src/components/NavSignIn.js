@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Menu, Segment } from 'semantic-ui-react';
 import SignUpFormCompany from "./SignUpFormCompany";
+import SignUpFormStudent from "./SignUpFormStudent";
 // import SignUpFormStudent from "./SignUpFormStudent";
 
 export default class MenuExampleTabularOnTop extends Component {
@@ -10,7 +11,7 @@ export default class MenuExampleTabularOnTop extends Component {
       return (<SignUpFormCompany/>)
     }
     else{
-      return (<SignUpFormCompany/>)
+      return (<SignUpFormStudent/>)
     }
   }
 

@@ -5,26 +5,34 @@ import $ from "jquery";
 
 function SignUpFormCompany(){
 
-  const [company_name, setCompanyName] = useState(null)
+  const [name, setName] = useState(null)
+  const [surname, setSurname] = useState(null)
   const [email, setEmail] = useState(null)
-  const [company_city, setCompanyCity] = useState(null)
+  const [student_university, setStudentUniversity] = useState(null)
+  const [student_ID, setStudentID] = useState(null)
   const [pass, setPass] = useState(null)
   const [confirm_pass, setConfirmPass] = useState(null)
-  const [company_name_error,setCompanyNameError] =useState(null)
+  const [name_error,setNameError] =useState(null)
+  const [surname_error,setSurnameError] =useState(null)
   const [email_error,setEmailError] =useState(null)
+  const [student_ID_error, setStudentIDError] = useState(null)
   const [pass_error,setPassError] = useState([])
   const [confirm_pass_error,setConfirmPassError] = useState(null)
-  const [city, setCity] = useState(null);
   const [loaded,setLoaded] = useState(false);
+  const [university, setUniversity] = useState(null);
 
 
+  //TODO: Add validation criteria for student ID
   function isValid(){
     var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     function hasUpper(str){
       return (/[A-Z]/.test(str))
     }
-    if(!company_name.trim()){
-      setCompanyNameError(prevState => prevState = "Company name is required")
+    if(!name.trim()){
+      setNameError(prevState => prevState = "Name is required")
+    }
+    if(!surname.trim()){
+      setSurnameError(prevState => prevState = "Surname is required")
     }
     if(!email.trim()){
       setEmailError(prevState => prevState = "Email required") 
@@ -55,24 +63,24 @@ function SignUpFormCompany(){
   function handleError() {
     $(function(){
       $("#submit").on("click",function(){
-        $("#companyNameInput").attr("error",{ content: company_name_error});
-        $("#companyEmailInput").attr("error",{ content: email_error});
-        $("#companyPassInput").attr("error",{ content: pass_error});
-        $("#companyConfirmPassInput").attr("error",{ content: confirm_pass_error});
+        $("#nameInput").attr("error",{ content: name_error});
+        $("#surnameInput").attr("error",{ content: surname_error});
+        $("#emailInput").attr("error",{ content: email_error});
+        $("#passInput").attr("error",{ content: pass_error});
+        $("#confirmPassInput").attr("error",{ content: confirm_pass_error});
       })
     })
     }
 
     
   async function postData(){
-    const company = {name:company_name,email:email,city:company_city,password:pass};
-    console.log(company)
-    const response = await fetch("/SignUpCompany",{
+    const student = {name:name,surname:surname,email:email,university:student_university,studentID:student_ID,password:pass};
+    const response = await fetch("/SignUpStudent",{
       method:"POST",
       headers:{
         "Content-type":"application/json; charset=UTF-8"
       },
-      "body":JSON.stringify(company)
+      "body":JSON.stringify(student)
     }) 
     if(response.ok){
       console.log("okkkk")
@@ -81,9 +89,7 @@ function SignUpFormCompany(){
       console.log("nöööö")
     }
   }
-
-  
-  function formatCity(data){
+  function formatUniversity(data){
     var formatted_array = []
     for(var i = 0;i<data.length;i++){
       formatted_array.push({key:data[i]._id,text:data[i].name,value:data[i]._id})
@@ -91,17 +97,16 @@ function SignUpFormCompany(){
     return formatted_array
   }  
 
-  async function getCity(){
-    const response = await fetch("/GetCity")
-    const data = await response.json()
-    const city = formatCity(data)
-    console.log(city);
-    setCity(prevData => prevData = city);
+  async function getUniversity(){
+    const response = await fetch("/GetUniversity")
+    const data = await response.json();
+    const uni = formatUniversity(data);
+    setUniversity(prevData => prevData = uni);
     setLoaded(prevData => prevData = true);
   }
   
   function hasError(){
-    if(company_name_error === null || email_error === null || pass_error === null || confirm_pass_error === null || company_city !== null){
+    if(name_error === null || surname_error === null || email_error === null || pass_error === null || student_ID_error === null || confirm_pass_error === null || student_university !== null){
       return false;
     }
     else{
@@ -122,8 +127,8 @@ function SignUpFormCompany(){
     //handleError();
   }
 
-  if(city === null){
-    getCity();
+  if(university === null){
+    getUniversity();
   }
   if(loaded === true){
     const element = document.getElementById("form");
@@ -134,26 +139,32 @@ function SignUpFormCompany(){
     <div>
       <Form id = "form" onSubmit = {e => handleSubmit(e)} loading>
         <div>
-          <Form.Input id = "companyNameInput" fluid label='Company Name' placeholder='Name' value={company_name} onChange={e => updateState(setCompanyName,e)}/>
+          <Form.Input id = "nameInput" fluid label='Name' placeholder='Name' value={name} onChange={e => updateState(setName,e)}/>
         </div>
         <div>
-          <Form.Input id = "companyEmailInput" fluid  type="email" label='Company Email' placeholder='Email' value={email} onChange={e => updateState(setEmail,e)}/>
-        </div> 
+          <Form.Input id = "surnameInput" fluid label='Surname' placeholder='Surname' value={surname} onChange={e => updateState(setSurname,e)}/>
+        </div>
+        <div>
+          <Form.Input id = "emailInput" fluid  type="email" label='Email' placeholder='Email' value={email} onChange={e => updateState(setEmail,e)}/>
+        </div>
         <div>
         <Form.Select
             fluid
             selection
-            label='Cİty'
-            options={city}
-            placeholder='City'
-            onChange={(e, { value }) => setCompanyCity(prevData => prevData = value)}
+            label='University'
+            options={university}
+            placeholder='University'
+            onChange={(e, { value }) => setStudentUniversity(prevData => prevData = value)}
           />
-        </div>       
-        <div>
-          <Form.Input id = "companyPassInput" fluid label='Enter Password' type='password' value={pass} onChange={e => updateState(setPass,e)}/>
         </div>
         <div>
-          <Form.Input id = "companyConfirmPassInput" fluid label='Confirm Password' type='password' value={confirm_pass} onChange={e => updateState(setConfirmPass,e)}/>
+          <Form.Input id = "studentIDInput" fluid label='Student ID' placeholder='Student ID' value={student_ID} onChange={e => updateState(setStudentID,e)}/>
+        </div>        
+        <div>
+          <Form.Input id = "passInput" fluid label='Enter Password' type='password' value={pass} onChange={e => updateState(setPass,e)}/>
+        </div>
+        <div>
+          <Form.Input id = "confirmPassInput" fluid label='Confirm Password' type='password' value={confirm_pass} onChange={e => updateState(setConfirmPass,e)}/>
         </div>
         <Form.Button id="submit">Sign Up</Form.Button>
       </Form>

@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { Menu, Dropdown, Item,Button,Segment } from 'semantic-ui-react'
-import ModalDim from "./ModalDim";
+import { Menu,Segment } from 'semantic-ui-react'
+import ModalDimSignUp from "./ModalDimSignUp";
+import ModalDimSignIn from "./ModalDimSignIn";
+
+
 
 export default class MenuExampleSecondaryPointing extends Component {
   state = { activeItem: 'home' }
@@ -25,18 +28,11 @@ export default class MenuExampleSecondaryPointing extends Component {
             onClick={this.handleItemClick}
           />          
           <Menu.Menu position='right'>
-        <Dropdown item text='Language'>
-          <Dropdown.Menu>
-            <Dropdown.Item>English</Dropdown.Item>
-            <Dropdown.Item>Russian</Dropdown.Item>
-            <Dropdown.Item>Spanish</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
         <Menu.Item>
-          <ModalDim title="Sign In"/>
+          <ModalDimSignIn title="Sign In"/>
         </Menu.Item>
         <Menu.Item>
-        <ModalDim title="Sign Up"/>
+          <ModalDimSignUp title="Sign Up"/>
         </Menu.Item>
       </Menu.Menu>
         </Menu>

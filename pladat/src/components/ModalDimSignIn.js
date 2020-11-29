@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Modal } from 'semantic-ui-react'
-import Nav from "./Nav"
+import Nav from "./NavSignUp"
 
 
 
@@ -31,7 +31,7 @@ function ModalExampleDimmer(props) {
 
       <Modal
         closeIcon
-        size="large"
+        size="medium"
         dimmer={dimmer}
         open={open}
         onClose={() => dispatch({ type: 'CLOSE_MODAL' })}
