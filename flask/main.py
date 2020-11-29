@@ -20,45 +20,57 @@ def home():
         "name":"demo"
     }
 
-@app.route("/get_univ", methods = ["GET", "POST"])
-def get_univ():
+@app.route("/GetUni", methods = ["GET", "POST"])
+def get_uni():
     array = []
-    universities = uni.find({})
-    for university in universities:
-        array.append(jsonify(university))
-    
+    try:
+        universities = uni.find({})
+        for university in universities:
+            array.append(jsonify(university))
+    except Exception as e:
+        print(e)
+        return {"417":"Expectation failed"}    
     data = {"uni" : array }   
     return data
 
-@app.route("/get_student", methods = ["GET", "POST"])
+@app.route("/GetStudent", methods = ["GET", "POST"])
 def get_student():
     array = []
-    students = students_db.find({})
-    for student in students:
-        array.append(jsonify(student))
-
+    try:
+        students = students_db.find({})
+        for student in students:
+            array.append(jsonify(student))
+    except Exception as e:
+        print(e)
+        return {"417":"Expectation failed"}
     data = {"student" : array}
-    return array
+    return data
 
-@app.route("/get_company", methods = ["GET", "POST"])
+@app.route("/GetCompany", methods = ["GET", "POST"])
 def get_company():
     array = []
-    companies = companies_db.find({})
-    for company in companies:
-        array.append(jsonify(company))
-
+    try:
+        companies = companies_db.find({})
+        for company in companies:
+            array.append(jsonify(company))
+    except Exception as e:
+        print(e)
+        return {"417":"Expectation failed"}
     data = {"company" : array}
-    return array
+    return data
 
-@app.route("/get_language", methods = ["GET", "POST"])
+@app.route("/GetLanguage", methods = ["GET", "POST"])
 def get_language():
     array = []
-    languages = languages_db.find({})
-    for language in languages:
-        array.append(jsonify(language))
-
+    try:
+        languages = languages_db.find({})
+        for language in languages:
+            array.append(jsonify(language))
+    except Exception as e:
+        print(e)
+        return {"417":"Expectation failed"}
     data = {"language" : array}
-    return array
+    return data
 
 
 if __name__ == "__main__":
