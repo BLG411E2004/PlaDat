@@ -1,14 +1,12 @@
-import React, {useState,useEffect} from "react"
-import Navbar from "../components/Navbar"
-
+import React from "react";
+import Navbar from "../components/Navbar";
 
 function Page() {
-  return(
+  return (
     <div>
       <Navbar></Navbar>
     </div>
-  )    
-  }
-  
-  export default Page;
-  
+  );
+}
+
+export default Page;

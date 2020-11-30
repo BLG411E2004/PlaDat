@@ -72,7 +72,7 @@ function SignUpFormCompany(){
     })
     }
 
-    
+  //TODO: Check for if the email has already been used
   async function postData(){
     const student = {name:name,surname:surname,email:email,university:student_university,studentID:student_ID,password:pass};
     const response = await fetch("/SignUpStudent",{

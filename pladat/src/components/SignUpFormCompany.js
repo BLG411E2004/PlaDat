@@ -63,7 +63,7 @@ function SignUpFormCompany(){
     })
     }
 
-    
+  //TODO: Check for if the email has already been used  
   async function postData(){
     const company = {name:company_name,email:email,city:company_city,password:pass};
     console.log(company)

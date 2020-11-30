@@ -28,6 +28,7 @@ $ yarn add semantic-ui-react semantic-ui-css
 $ cd {YOUR_GIT_REPOSITORY_PATH}/pladat
 $ npm install react@next react-dom@next
 $ npm install jquery
+$ npm install react-router-dom
 ```
 
 ## Run the Application

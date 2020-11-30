@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, Modal } from 'semantic-ui-react'
-import Nav from "./NavSignUp"
-
+import Nav from "./Nav"
 
 
 function exampleReducer(state, action) {
@@ -20,6 +19,14 @@ function ModalExampleDimmer(props) {
     open: false,
     dimmer: undefined,
   })
+  function content(){
+    if(props.value == "signin"){
+      return (<Nav type="signin"/>);
+    }
+    else{
+      return (<Nav type="signup"/>);
+    }
+  }
   const { open, dimmer } = state
   return (
     <div>      
@@ -36,7 +43,7 @@ function ModalExampleDimmer(props) {
         open={open}
         onClose={() => dispatch({ type: 'CLOSE_MODAL' })}
       >
-        <Nav></Nav>
+        {content()}
       </Modal>
     </div>
   )

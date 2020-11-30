@@ -1,9 +1,25 @@
-from flask import Flask,render_template,request,jsonify,json
+from flask import Flask,render_template,request,jsonify,json,make_response
 from pymongo import MongoClient
 import pymongo
 from datetime import datetime
 from passlib.hash import sha256_crypt
 from datetime import datetime as dt
+
+"""
+1. Bilgilendirme yanıtları (100-199),
+2. Başarı yanıtları (200-299),
+3. Yönlendirmeler (300-399),
+4. İstemci hataları (400-499) ve,
+5. Sunucu hataları (500-599).
+"""
+"""
+200 = Success
+498 = Account does not exist
+499 = Wrong password
+417 = Database connection problems
+"""
+
+
 
 app = Flask("__main__")
 
@@ -29,6 +45,14 @@ def get_time():
 
     return (year+month+day+hour+minute+second)
 
+def get_response(code):
+    response = response = app.response_class(
+                    response="tjtj",
+                    status=code,
+                    mimetype='application/json'
+                )
+    return response
+
 @app.route("/SignUpCompany", methods=["GET","POST"])
 def signup_company():
     data = json.loads(request.data)                         # Get data from react
@@ -39,10 +63,10 @@ def signup_company():
     data.update({"_id":company_id})
     try:
         company_db.insert(data)
-        return {"201":"Success"}
+        return get_response(200)
     except Exception as e:
         print(e)
-        return {"417":"Expectation failed"}
+        return get_response(417)
 
 
 @app.route("/SignUpStudent", methods=["GET","POST"])
@@ -56,11 +80,56 @@ def signup_student():
     data["studentID"] = int(data["studentID"])
     try:
         student_db.insert(data)
-        return {"201":"Success"}
+        return get_response(200)
     except Exception as e:
         print(e)
-        return {"417":"Expectation failed"}
+        return get_response(417)
 
+@app.route("/SignInStudent", methods=["GET","POST"])
+def signin_student():
+    data = json.loads(request.data)
+    db_pass_list = []
+    try:
+        result = student_db.find({"email":data["email"]})
+        for r in result:
+            db_pass_list.append(r)
+        if(db_pass_list == []):
+            print("Account does not exist")
+            return get_response(498)
+        else:
+            db_pass = db_pass_list[0]
+            if(sha256_crypt.verify(data["password"],db_pass["password"])):
+                print("Im in")
+                return get_response(200)
+            else:
+                print("Wrong pass")
+                return get_response(499)
+    except Exception as e:
+        print(e)
+        return get_response(417)
+
+@app.route("/SignInCompany", methods=["GET","POST"])
+def signin_company():
+    data = json.loads(request.data)
+    db_pass_list = []
+    try:
+        result = company_db.find({"email":data["email"]})
+        for r in result:
+            db_pass_list.append(r)
+        if(db_pass_list == []):
+            print("Account does not exist")
+            return get_response(498)
+        else:
+            db_pass = db_pass_list[0]
+            if(sha256_crypt.verify(data["password"],db_pass["password"])):
+                print("Im in")
+                return get_response(200)
+            else:
+                print("Wrong pass")
+                return get_response(499)
+    except Exception as e:
+        print(e)
+        return get_response(417)
 
 
 
@@ -73,7 +142,7 @@ def get_city():
             city_list.append(city)
     except Exception as e:
         print(e)
-        return {"417":"Expectation failed"}
+        return get_response(417)
     return jsonify(city_list)
 
 @app.route("/GetUniversity", methods=["GET"])
@@ -85,7 +154,7 @@ def get_university():
             university_list.append(uni)
     except Exception as e:
         print(e)
-        return {"417":"Expectation failed"}
+        return get_response(417)
     return jsonify(university_list)
 
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Menu,Segment } from 'semantic-ui-react'
-import ModalDimSignUp from "./ModalDimSignUp";
-import ModalDimSignIn from "./ModalDimSignIn";
+import ModalDim from "./ModalDim";
 
 
 
@@ -29,10 +28,10 @@ export default class MenuExampleSecondaryPointing extends Component {
           />          
           <Menu.Menu position='right'>
         <Menu.Item>
-          <ModalDimSignIn title="Sign In"/>
+          <ModalDim title="Sign In" value="signin"/>
         </Menu.Item>
         <Menu.Item>
-          <ModalDimSignUp title="Sign Up"/>
+          <ModalDim title="Sign Up" value="signup"/>
         </Menu.Item>
       </Menu.Menu>
         </Menu>
