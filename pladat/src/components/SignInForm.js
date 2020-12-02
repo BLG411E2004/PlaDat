@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form } from "semantic-ui-react";
 import $ from "jquery";
 import { useHistory } from "react-router-dom";
+import auth from "./Auth";
 
 function SignUpFormCompany(props) {
   const [email, setEmail] = useState(null);
@@ -40,12 +41,15 @@ function SignUpFormCompany(props) {
 
   async function postData() {
     var address = "";
+    var addressPost = "";
     var response = null;
     const user = { email: email, password: pass };
     if (props.user === "student") {
       address = "/SignInStudent";
+      addressPost = "/HomeStudent";
     } else if (props.user === "company") {
       address = "/SignInCompany";
+      addressPost = "/HomeCompany";
     }
     response = await fetch(address, {
       method: "POST",
@@ -57,13 +61,16 @@ function SignUpFormCompany(props) {
 
     if (response.ok) {
       console.log("okkkk");
+      auth.login(() => {
+        console.log(addressPost);
+        history.push(addressPost);
+      });
     } else {
       //TODO: Put warning according to the code of the response
       //TODO: Maybe find a better way???
       console.log("nöööö");
     }
   }
-
   function hasError() {
     if (email_error === null || pass_error === null) {
       return false;
@@ -77,19 +84,13 @@ function SignUpFormCompany(props) {
     isValid();
     if (!hasError()) {
       postData();
-      if (props.user === "company") {
-        redirect("/HomeCompany");
-      } else if (props.user === "student") {
-        redirect("/HomeStudent");
-      }
     } else {
       handleError();
     }
-    //handleError();
   }
 
   return (
-    <div>
+    <>
       <Form id="form" onSubmit={(e) => handleSubmit(e)}>
         <div>
           <Form.Input
@@ -102,6 +103,7 @@ function SignUpFormCompany(props) {
             onChange={(e) => updateState(setEmail, e)}
           />
         </div>
+        <br />
         <div>
           <Form.Input
             id="passInput"
@@ -112,9 +114,10 @@ function SignUpFormCompany(props) {
             onChange={(e) => updateState(setPass, e)}
           />
         </div>
+        <br />
         <Form.Button id="submit">Sign In</Form.Button>
       </Form>
-    </div>
+    </>
   );
 }
 
