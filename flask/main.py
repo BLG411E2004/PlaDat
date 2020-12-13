@@ -12,6 +12,7 @@ from datetime import datetime as dt
 4. İstemci hataları (400-499) ve,
 5. Sunucu hataları (500-599).
 """
+
 """
 200 = Success
 498 = Account does not exist
@@ -47,7 +48,7 @@ def get_time():
 
 def get_response(code):
     response = response = app.response_class(
-                    response="tjtj",
+                    response="tjddgtj",
                     status=code,
                     mimetype='application/json'
                 )
@@ -143,6 +144,7 @@ def get_city():
     except Exception as e:
         print(e)
         return get_response(417)
+    print(city_list)
     return jsonify(city_list)
 
 @app.route("/GetUniversity", methods=["GET"])

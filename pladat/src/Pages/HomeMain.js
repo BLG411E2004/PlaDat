@@ -1,10 +1,10 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 
-function Page() {
+function Page(props) {
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar sign={props.sign}></Navbar>
     </div>
   );
 }

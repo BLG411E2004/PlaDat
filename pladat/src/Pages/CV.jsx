@@ -1,12 +1,10 @@
 import React from "react";
-import Navbar from "../components/NavbarStudent";
+import Navbar from "../components/SideMenu";
 
-function Page() {
+export default function CV() {
   return (
     <div>
       <Navbar></Navbar>
     </div>
   );
 }
-
-export default Page;

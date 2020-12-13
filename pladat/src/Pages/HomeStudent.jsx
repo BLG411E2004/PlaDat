@@ -1,7 +1,12 @@
 import React from "react";
+import Navbar from "../components/NavbarStudent";
 
-function Card() {
-  return <h1>student home</h1>;
+function Page() {
+  return (
+    <div>
+      <Navbar></Navbar>
+    </div>
+  );
 }
 
-export default Card;
+export default Page;
