@@ -1,0 +1,44 @@
+.p {
+  color: white;
+}
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #d6aa80;
+}
+.a {
+  background-image: url("../images/homepage_back.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.paper {
+  background-color: rgba(184, 126, 91, 0.4) !important;
+  width: 70%;
+  margin-left: 10%;
+  margin-top: 20% !important;
+  margin-bottom: 30% !important;
+  min-width: 300px;
+}
+
+.typo {
+  font-size: 700% !important;
+  padding: 3%;
+  color: #ffddc8;
+  text-shadow: 5px 0 0 #452319;
+}
+
+#one {
+  padding-bottom: 0% !important;
+}
+#two {
+  padding-top: 0% !important;
+}
+.maingrid {
+  margin-top: 0;
+}
+.grid {
+  margin-bottom: 10% !important;
+}
